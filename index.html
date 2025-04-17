@@ -143,30 +143,48 @@
 
   <section class="py-12 bg-white text-center" id="destaques">
     <h2 class="text-3xl font-bold mb-8 text-purple-800">Produtos em Destaque</h2>
+  
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+      
       <!-- Produto 1 -->
       <div class="bg-white border rounded-xl shadow-md p-4 flex flex-col items-center">
-        <img src="/imagens/veus tradicional.webp" alt="Produto 1" class="mb-4 rounded-lg">
+        <img src="/imagens/veus tradicional.webp" alt="Véu Flor de Luz" class="mb-4 rounded-lg w-52 h-52 object-cover" />
         <h3 class="text-xl font-semibold text-purple-700">Véu Flor de Luz</h3>
         <p class="text-lg text-gray-700 my-2">R$ 59,90</p>
-        <button class="mt-2 bg-purple-700 hover:bg-purple-800 text-white font-medium px-4 py-2 rounded-lg">Adicionar ao Carrinho</button>
+        <button
+          onclick="adicionarAoCarrinho({ id: 1, nome: 'Véu Flor de Luz', descricao: 'Véu tradicional com detalhe florido', preco: 59.90 })"
+          class="mt-2 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+          Adicionar ao Carrinho
+        </button>
       </div>
+  
       <!-- Produto 2 -->
       <div class="bg-white border rounded-xl shadow-md p-4 flex flex-col items-center">
-        <img src="/imagens/veus tradicional.webp" alt="Produto 2" class="mb-4 rounded-lg">
+        <img src="/imagens/veus tradicional.webp" alt="Véu Renda Pura" class="mb-4 rounded-lg w-52 h-52 object-cover" />
         <h3 class="text-xl font-semibold text-purple-700">Véu Renda Pura</h3>
         <p class="text-lg text-gray-700 my-2">R$ 74,90</p>
-        <button class="mt-2 bg-purple-700 hover:bg-purple-800 text-white font-medium px-4 py-2 rounded-lg">Adicionar ao Carrinho</button>
+        <button
+          onclick="adicionarAoCarrinho({ id: 2, nome: 'Véu Renda Pura', descricao: 'Véu com renda delicada branca', preco: 74.90 })"
+          class="mt-2 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+          Adicionar ao Carrinho
+        </button>
       </div>
+  
       <!-- Produto 3 -->
       <div class="bg-white border rounded-xl shadow-md p-4 flex flex-col items-center">
-        <img src="/imagens/veus tradicional.webp" alt="Produto 3" class="mb-4 rounded-lg">
+        <img src="/imagens/veus tradicional.webp" alt="Kit Especial Fé" class="mb-4 rounded-lg w-52 h-52 object-cover" />
         <h3 class="text-xl font-semibold text-purple-700">Kit Especial Fé</h3>
         <p class="text-lg text-gray-700 my-2">R$ 119,90</p>
-        <button class="mt-2 bg-purple-700 hover:bg-purple-800 text-white font-medium px-4 py-2 rounded-lg">Adicionar ao Carrinho</button>
+        <button
+          onclick="adicionarAoCarrinho({ id: 3, nome: 'Kit Especial Fé', descricao: 'Kit com 2 véus e sacolinha personalizada', preco: 119.90 })"
+          class="mt-2 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+          Adicionar ao Carrinho
+        </button>
       </div>
+  
     </div>
   </section>
+  
 
   <section class="bg-purple-50 py-12 text-center">
     <h2 class="text-3xl font-bold mb-8 text-purple-800">O que dizem nossas clientes</h2>
@@ -258,6 +276,94 @@
     </div>
     <p class="text-center mt-6 text-sm text-purple-200">© 2025 Mundo dos Véus. Todos os direitos reservados.</p>
   </footer>
+  
+
+  
+ <!-- Carrinho Lateral -->
+<div id="carrinho-lateral" class="fixed top-24 right-4 w-72 bg-white shadow-lg rounded-xl p-4 border border-purple-300 z-50">
+    <h3 class="text-xl font-bold text-purple-700 mb-4">🛒 Seu Carrinho</h3>
+    <ul id="itens-carrinho" class="space-y-2 max-h-64 overflow-y-auto">
+      <!-- Itens adicionados aparecerão aqui -->
+    </ul>
+    <p class="text-lg font-semibold mt-4">Total: R$ <span id="total-carrinho">0.00</span></p>
+  
+    <a href="https://link.mercadopago.com.br/lojasdeveu" target="_blank"
+       class="inline-block mt-4 bg-purple-700 text-white text-lg font-semibold px-4 py-2 rounded-lg hover:bg-purple-800 transition">
+      Finalizar Compra
+    </a>
+  </div>
+  
+
+
+
+  
+  
+
+  <script>
+    const carrinho = [];
+    const itensCarrinho = document.getElementById("itens-carrinho");
+    const totalCarrinho = document.getElementById("total-carrinho");
+  
+    function adicionarAoCarrinho(produto) {
+      const existente = carrinho.find(item => item.id === produto.id);
+  
+      if (existente) {
+        existente.quantidade += 1;
+      } else {
+        carrinho.push({ ...produto, quantidade: 1 });
+      }
+  
+      atualizarCarrinho();
+    }
+  
+    function atualizarCarrinho() {
+      itensCarrinho.innerHTML = "";
+  
+      let total = 0;
+  
+      carrinho.forEach(item => {
+        const subtotal = item.preco * item.quantidade;
+        total += subtotal;
+  
+        const li = document.createElement("li");
+        li.classList.add("flex", "justify-between", "items-center", "border-b", "pb-1");
+  
+        li.innerHTML = `
+          <div>
+            <p class="font-medium">${item.nome}</p>
+            <small class="text-gray-500">Qtd: ${item.quantidade} x R$ ${item.preco.toFixed(2)}</small>
+          </div>
+          <strong class="text-purple-700">R$ ${subtotal.toFixed(2)}</strong>
+          <div class="flex items-center space-x-2 ml-4">
+            <button onclick="ajustarQuantidade(${item.id}, -1)" class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">-</button>
+            <span class="font-medium">${item.quantidade}</span>
+            <button onclick="ajustarQuantidade(${item.id}, 1)" class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">+</button>
+          </div>
+        `;
+  
+        itensCarrinho.appendChild(li);
+      });
+  
+      totalCarrinho.textContent = total.toFixed(2);
+    }
+  
+    function ajustarQuantidade(id, valor) {
+      const item = carrinho.find(item => item.id === id);
+      
+      if (item) {
+        item.quantidade += valor;
+  
+        if (item.quantidade <= 0) {
+          // Se a quantidade for zero ou menor, remove o item
+          const index = carrinho.indexOf(item);
+          carrinho.splice(index, 1);
+        }
+        
+        atualizarCarrinho();
+      }
+    }
+  </script>
+  
   
   
   

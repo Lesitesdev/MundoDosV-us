@@ -1,0 +1,13 @@
+<section id="carrinho" class="p-6">
+  <h2 class="text-2xl font-bold mb-4">Seu Carrinho</h2>
+  <div id="lista-carrinho" class="space-y-4">
+    <!-- Itens do carrinho vão aqui via JavaScript -->
+  </div>
+
+  <div class="mt-6 text-right">
+    <p class="text-lg font-semibold">Total: R$ <span id="total-carrinho">0.00</span></p>
+    <button id="finalizar-compra" class="mt-4 bg-purple-700 text-white px-6 py-2 rounded hover:bg-purple-800">
+      Finalizar Compra
+    </button>
+  </div>
+</section>
