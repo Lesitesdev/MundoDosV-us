@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Agradecimento - Mundo dos Véus</title>
+  <script src="js/agradecimento.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const pedido = JSON.parse(localStorage.getItem('pedido'));
+      if (pedido) {
+        document.getElementById('pedido-nome').textContent = pedido.nome;
+        document.getElementById('pedido-itens').textContent = pedido.itens.map(item => `${item.nome} x${item.quantidade}`).join(', ');
+        document.getElementById('pedido-total').textContent = `R$ ${pedido.total}`;
+      }
+    });
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+  <!-- Cabeçalho -->
+  <header class="bg-purple-700 text-white p-4 text-center text-2xl font-bold">
+    Mundo dos Véus - Agradecimento
+  </header>
+
+  <main class="max-w-3xl mx-auto mt-6 p-4 bg-white shadow-md rounded">
+    <h2 class="text-xl font-bold mb-4">Obrigado pela sua Compra!</h2>
+
+    <p class="text-lg">Olá, <span id="pedido-nome"></span>. Seu pedido foi recebido com sucesso!</p>
+
+    <h3 class="mt-6 text-lg font-semibold">Itens do Pedido:</h3>
+    <p id="pedido-itens"></p>
+
+    <div class="mt-6 flex justify-between items-center border-t pt-4">
+      <span class="text-lg font-semibold">Total:</span>
+      <span id="pedido-total" class="text-2xl font-bold text-purple-700">0.00</span>
+    </div>
+
+    <div class="mt-6">
+      <p class="text-sm text-gray-500">Você receberá um e-mail com os detalhes do seu pedido em breve.</p>
+    </div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="mt-10 text-center text-sm text-gray-500">
+    &copy; 2025 Mundo dos Véus. Todos os direitos reservados.
+  </footer>
+
+</body>
+</html>

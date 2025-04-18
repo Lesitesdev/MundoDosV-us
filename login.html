@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Mundo dos Véus</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-pink-50 text-gray-800">
+
+  <!-- HEADER -->
+   <!-- Header -->
+   <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <a href="#" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
+    <div class="flex items-center gap-6">
+      <nav class="hidden md:flex gap-4 font-medium text-gray-700">
+        <a href="#">Home</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#">Sobre</a>
+        <a href="#">Contato</a>
+      </nav>
+      <div class="search-box hidden md:block">
+        <input type="text" placeholder="Buscar...">
+      </div>
+      <div class="flex gap-4 text-lg">
+        <a href="#">🛒</a>
+        <a href="#">👤 Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO DA PÁGINA -->
+  <main class="flex items-center justify-center py-20 px-4">
+    <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+      <h2 class="text-2xl font-bold text-center text-pink-700 mb-6">Entrar na sua conta</h2>
+      <form>
+        <div class="mb-4">
+          <label class="block mb-1 text-sm font-medium text-gray-700">E-mail</label>
+          <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-200 focus:outline-none" placeholder="voce@exemplo.com" required />
+        </div>
+        <div class="mb-6">
+          <label class="block mb-1 text-sm font-medium text-gray-700">Senha</label>
+          <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-200 focus:outline-none" placeholder="********" required />
+        </div>
+        <button type="submit" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 rounded-lg transition">Entrar</button>
+      </form>
+      <p class="mt-4 text-sm text-center text-gray-600">
+        Ainda não tem conta?
+        <a href="/cadastro.html" class="text-pink-600 hover:underline font-medium">Cadastre-se aqui</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-purple-800 text-white py-10">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
+      <!-- Contato -->
+      <div>
+        <h4 class="font-bold mb-2">Contato</h4>
+        <p>📱 WhatsApp: (11) 91234-5678</p>
+        <p>✉️ Email: contato@mundodosveus.com</p>
+      </div>
+      <!-- Links Úteis -->
+      <div>
+        <h4 class="font-bold mb-2">Links Úteis</h4>
+        <ul>
+          <li><a href="#" class="hover:underline">Política de Troca</a></li>
+          <li><a href="#" class="hover:underline">Frete e Entrega</a></li>
+          <li><a href="#" class="hover:underline">Termos e Condições</a></li>
+        </ul>
+      </div>
+      <!-- Redes Sociais -->
+      <div>
+        <h4 class="font-bold mb-2">Redes Sociais</h4>
+        <p><a href="#" class="hover:underline">Instagram</a></p>
+        <p><a href="#" class="hover:underline">Facebook</a></p>
+        <p><a href="#" class="hover:underline">Pinterest</a></p>
+      </div>
+      <!-- Pagamentos -->
+      <div>
+        <h4 class="font-bold mb-2">Formas de Pagamento</h4>
+        <p>💳 Cartões | Pix | Boleto</p>
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/visa.gif" alt="Visa" class="inline w-10">
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/master.gif" alt="MasterCard" class="inline w-10">
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/pix.gif" alt="Pix" class="inline w-10">
+      </div>
+    </div>
+    <p class="text-center mt-6 text-sm text-purple-200">© 2025 Mundo dos Véus. Todos os direitos reservados.</p>
+  </footer>
+  <script src="/carrinho.js"></script>
+</body>
+</html>

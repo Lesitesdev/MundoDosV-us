@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produtos - Mundo dos Véus</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-pink-50 text-gray-800">
+
+  <!-- HEADER -->
+  <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <a href="index.html" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
+    <div class="flex items-center gap-6">
+      <nav class="hidden md:flex gap-4 font-medium text-gray-700">
+        <a href="index.html">Home</a>
+        <a href="produtos.html">Produtos</a>
+        <a href="#">Sobre</a>
+        <a href="#">Contato</a>
+      </nav>
+      <div class="search-box hidden md:block">
+        <input type="text" placeholder="Buscar...">
+      </div>
+      <div class="flex gap-4 text-lg">
+        <a href="carrinho.html">🛒</a>
+        <a href="login.html">👤 Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CATÁLOGO COM FILTRO -->
+  <section class="p-6 bg-white max-w-7xl mx-auto mt-8">
+    <h1 class="text-2xl font-bold mb-4">Todos os Véus</h1>
+
+    <!-- Filtros -->
+  <!-- Filtros -->
+<div class="flex flex-wrap gap-4 mb-6">
+    <button id="btn-todos" class="filtro-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full" onclick="filtrarProdutos('todos', this)">Todos</button>
+    <button id="btn-adulto" class="filtro-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full" onclick="filtrarProdutos('adulto', this)">Adulto</button>
+    <button id="btn-infantil" class="filtro-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full" onclick="filtrarProdutos('infantil', this)">Infantil</button>
+    <button id="btn-rendado" class="filtro-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full" onclick="filtrarProdutos('rendado', this)">Rendado</button>
+  </div>
+  
+
+    
+
+    <!-- Produtos -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 text-sm" id="lista-produtos">
+      
+      <!-- Produto adulto -->
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition" id="adulto">
+        <img src="img/veu1.jpg" alt="Véu Branco" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Branco Adulto</h2>
+        <p class="text-gray-600">R$ 49,90</p>
+        <a href="produto.html?id=1" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu1.jpg" alt="Véu Branco" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Branco Adulto</h2>
+        <p class="text-gray-600">R$ 49,90</p>
+        <a href="produto.html?id=1" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu1.jpg" alt="Véu Branco" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Branco Adulto</h2>
+        <p class="text-gray-600">R$ 49,90</p>
+        <a href="produto.html?id=1" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu1.jpg" alt="Véu Branco" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Branco Adulto</h2>
+        <p class="text-gray-600">R$ 49,90</p>
+        <a href="produto.html?id=1" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu1.jpg" alt="Véu Branco" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Branco Adulto</h2>
+        <p class="text-gray-600">R$ 49,90</p>
+        <a href="produto.html?id=1" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu1.jpg" alt="Véu Branco" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Branco Adulto</h2>
+        <p class="text-gray-600">R$ 49,90</p>
+        <a href="produto.html?id=1" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu1.jpg" alt="Véu Branco" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Branco Adulto</h2>
+        <p class="text-gray-600">R$ 49,90</p>
+        <a href="produto.html?id=1" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu1.jpg" alt="Véu Branco" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Branco Adulto</h2>
+        <p class="text-gray-600">R$ 49,90</p>
+        <a href="produto.html?id=1" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu1.jpg" alt="Véu Branco" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Branco Adulto</h2>
+        <p class="text-gray-600">R$ 49,90</p>
+        <a href="produto.html?id=1" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+
+
+
+      <!-- Produto infantil -->
+      <div data-categoria="infantil" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition" id="secao_kits">
+        <img src="img/veu2.jpg" alt="Véu Rosa" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Infantil Rosa</h2>
+        <p class="text-gray-600">R$ 39,90</p>
+        <a href="produto.html?id=2" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="infantil" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu2.jpg" alt="Véu Rosa" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Infantil Rosa</h2>
+        <p class="text-gray-600">R$ 39,90</p>
+        <a href="produto.html?id=2" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="infantil" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu2.jpg" alt="Véu Rosa" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Infantil Rosa</h2>
+        <p class="text-gray-600">R$ 39,90</p>
+        <a href="produto.html?id=2" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="infantil" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu2.jpg" alt="Véu Rosa" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Infantil Rosa</h2>
+        <p class="text-gray-600">R$ 39,90</p>
+        <a href="produto.html?id=2" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="infantil" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu2.jpg" alt="Véu Rosa" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Infantil Rosa</h2>
+        <p class="text-gray-600">R$ 39,90</p>
+        <a href="produto.html?id=2" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="infantil" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu2.jpg" alt="Véu Rosa" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Infantil Rosa</h2>
+        <p class="text-gray-600">R$ 39,90</p>
+        <a href="produto.html?id=2" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="infantil" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu2.jpg" alt="Véu Rosa" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Infantil Rosa</h2>
+        <p class="text-gray-600">R$ 39,90</p>
+        <a href="produto.html?id=2" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="infantil" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu2.jpg" alt="Véu Rosa" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Infantil Rosa</h2>
+        <p class="text-gray-600">R$ 39,90</p>
+        <a href="produto.html?id=2" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="infantil" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu2.jpg" alt="Véu Rosa" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Infantil Rosa</h2>
+        <p class="text-gray-600">R$ 39,90</p>
+        <a href="produto.html?id=2" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="infantil" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu2.jpg" alt="Véu Rosa" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Infantil Rosa</h2>
+        <p class="text-gray-600">R$ 39,90</p>
+        <a href="produto.html?id=2" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+
+      <!-- Produto rendado -->
+      <div data-categoria="rendado" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition" id="secao_rendado">
+        <img src="img/veu3.jpg" alt="Véu Rendado" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Preto Rendado</h2>
+        <p class="text-gray-600">R$ 59,90</p>
+        <a href="produto.html?id=3" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="rendado" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu3.jpg" alt="Véu Rendado" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Preto Rendado</h2>
+        <p class="text-gray-600">R$ 59,90</p>
+        <a href="produto.html?id=3" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="rendado" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu3.jpg" alt="Véu Rendado" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Preto Rendado</h2>
+        <p class="text-gray-600">R$ 59,90</p>
+        <a href="produto.html?id=3" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="rendado" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu3.jpg" alt="Véu Rendado" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Preto Rendado</h2>
+        <p class="text-gray-600">R$ 59,90</p>
+        <a href="produto.html?id=3" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="rendado" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu3.jpg" alt="Véu Rendado" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Preto Rendado</h2>
+        <p class="text-gray-600">R$ 59,90</p>
+        <a href="produto.html?id=3" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="rendado" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu3.jpg" alt="Véu Rendado" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Preto Rendado</h2>
+        <p class="text-gray-600">R$ 59,90</p>
+        <a href="produto.html?id=3" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="rendado" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu3.jpg" alt="Véu Rendado" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Preto Rendado</h2>
+        <p class="text-gray-600">R$ 59,90</p>
+        <a href="produto.html?id=3" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="rendado" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu3.jpg" alt="Véu Rendado" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Preto Rendado</h2>
+        <p class="text-gray-600">R$ 59,90</p>
+        <a href="produto.html?id=3" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="rendado" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu3.jpg" alt="Véu Rendado" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Preto Rendado</h2>
+        <p class="text-gray-600">R$ 59,90</p>
+        <a href="produto.html?id=3" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="rendado" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu3.jpg" alt="Véu Rendado" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Preto Rendado</h2>
+        <p class="text-gray-600">R$ 59,90</p>
+        <a href="produto.html?id=3" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+
+      <!-- Produto extra -->
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu4.jpg" alt="Véu Bege Adulto" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Bege Adulto</h2>
+        <p class="text-gray-600">R$ 44,90</p>
+        <a href="produto.html?id=4" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu4.jpg" alt="Véu Bege Adulto" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Bege Adulto</h2>
+        <p class="text-gray-600">R$ 44,90</p>
+        <a href="produto.html?id=4" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu4.jpg" alt="Véu Bege Adulto" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Bege Adulto</h2>
+        <p class="text-gray-600">R$ 44,90</p>
+        <a href="produto.html?id=4" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu4.jpg" alt="Véu Bege Adulto" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Bege Adulto</h2>
+        <p class="text-gray-600">R$ 44,90</p>
+        <a href="produto.html?id=4" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu4.jpg" alt="Véu Bege Adulto" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Bege Adulto</h2>
+        <p class="text-gray-600">R$ 44,90</p>
+        <a href="produto.html?id=4" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu4.jpg" alt="Véu Bege Adulto" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Bege Adulto</h2>
+        <p class="text-gray-600">R$ 44,90</p>
+        <a href="produto.html?id=4" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu4.jpg" alt="Véu Bege Adulto" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Bege Adulto</h2>
+        <p class="text-gray-600">R$ 44,90</p>
+        <a href="produto.html?id=4" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu4.jpg" alt="Véu Bege Adulto" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Bege Adulto</h2>
+        <p class="text-gray-600">R$ 44,90</p>
+        <a href="produto.html?id=4" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu4.jpg" alt="Véu Bege Adulto" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Bege Adulto</h2>
+        <p class="text-gray-600">R$ 44,90</p>
+        <a href="produto.html?id=4" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+      <div data-categoria="adulto" class="produto border rounded-xl shadow p-2 hover:shadow-lg transition">
+        <img src="img/veu4.jpg" alt="Véu Bege Adulto" class="rounded-xl mb-2 w-full h-32 object-cover" />
+        <h2 class="font-semibold">Véu Bege Adulto</h2>
+        <p class="text-gray-600">R$ 44,90</p>
+        <a href="produto.html?id=4" class="text-blue-600 hover:underline text-xs">Ver mais</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-purple-800 text-white py-10 mt-10">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
+      <div>
+        <h4 class="font-bold mb-2">Contato</h4>
+        <p>📱 WhatsApp: (11) 91234-5678</p>
+        <p>✉️ Email: contato@mundodosveus.com</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Links Úteis</h4>
+        <ul>
+          <li><a href="#" class="hover:underline">Política de Troca</a></li>
+          <li><a href="#" class="hover:underline">Frete e Entrega</a></li>
+          <li><a href="#" class="hover:underline">Termos e Condições</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Redes Sociais</h4>
+        <p><a href="#" class="hover:underline">Instagram</a></p>
+        <p><a href="#" class="hover:underline">Facebook</a></p>
+        <p><a href="#" class="hover:underline">Pinterest</a></p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Formas de Pagamento</h4>
+        <p>💳 Cartões | Pix | Boleto</p>
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/visa.gif" alt="Visa" class="inline w-10">
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/master.gif" alt="MasterCard" class="inline w-10">
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/pix.gif" alt="Pix" class="inline w-10">
+      </div>
+    </div>
+    <p class="text-center mt-6 text-sm text-purple-200">© 2025 Mundo dos Véus. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- SCRIPT DO FILTRO -->
+  <script>
+    function filtrarProdutos(categoria, botaoClicado) {
+      const produtos = document.querySelectorAll('.produto');
+  
+      produtos.forEach(produto => {
+        const cat = produto.getAttribute('data-categoria');
+        if (categoria === 'todos' || cat === categoria) {
+          produto.style.display = 'block';
+        } else {
+          produto.style.display = 'none';
+        }
+      });
+  
+      // Remove estilo ativo de todos os botões
+      document.querySelectorAll('.filtro-btn').forEach(btn => {
+        btn.classList.remove('bg-purple-700', 'text-white');
+        btn.classList.add('bg-gray-200', 'text-gray-800');
+      });
+  
+      // Aplica estilo ao botão clicado (inclusive se for "Todos")
+      botaoClicado.classList.add('bg-purple-700', 'text-white');
+      botaoClicado.classList.remove('bg-gray-200', 'text-gray-800');
+    }
+  
+    // Exibe todos ao carregar
+    document.addEventListener('DOMContentLoaded', () => {
+      const produtos = document.querySelectorAll('.produto');
+      produtos.forEach(p => p.style.display = 'block');
+    });
+  </script>
+  
+  
+  <script src="/carrinho.js"></script>
+
+</body>
+</html>
