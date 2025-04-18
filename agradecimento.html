@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Agradecimento - Mundo dos Véus</title>
+  <script src="js/agradecimento.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+  <!-- Header padrão do site -->
+  <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <a href="index.html" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main class="max-w-3xl mx-auto mt-6 p-4 bg-white shadow-md rounded">
+    <h2 class="text-2xl font-semibold text-center mb-6">Obrigado pela sua compra!</h2>
+
+    <div id="pedido-info" class="space-y-4">
+      <p class="text-lg">Seu número de pedido: <strong id="numero-pedido"></strong></p>
+      <h3 class="font-semibold text-lg">Resumo da Compra</h3>
+      <ul id="resumo-itens" class="space-y-2 text-sm text-gray-700"></ul>
+      <p class="mt-4 font-semibold">Subtotal: <span id="subtotal">R$ 0,00</span></p>
+      <p>Frete (SEDEX): <span id="frete">R$ 0,00</span></p>
+      <p class="text-lg font-bold mt-2">Total: <span id="total">R$ 0,00</span></p>
+    </div>
+
+    <div class="mt-6 text-center">
+      <button onclick="window.location.href='index.html'" class="bg-purple-700 text-white px-6 py-2 rounded hover:bg-purple-800 transition">
+        Voltar ao Início
+      </button>
+    </div>
+  </main>
+
+  <!-- Rodapé padrão -->
+  <footer class="bg-purple-800 text-white py-10">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
+      <!-- Contato -->
+      <div>
+        <h4 class="font-bold mb-2">Contato</h4>
+        <p>📱 WhatsApp: (11) 91234-5678</p>
+        <p>✉️ Email: contato@mundodosveus.com</p>
+      </div>
+      <!-- Links Úteis -->
+      <div>
+        <h4 class="font-bold mb-2">Links Úteis</h4>
+        <ul>
+          <li><a href="#" class="hover:underline">Política de Troca</a></li>
+          <li><a href="#" class="hover:underline">Frete e Entrega</a></li>
+          <li><a href="#" class="hover:underline">Termos e Condições</a></li>
+        </ul>
+      </div>
+      <!-- Redes Sociais -->
+      <div>
+        <h4 class="font-bold mb-2">Redes Sociais</h4>
+        <p><a href="#" class="hover:underline">Instagram</a></p>
+        <p><a href="#" class="hover:underline">Facebook</a></p>
+        <p><a href="#" class="hover:underline">Pinterest</a></p>
+      </div>
+      <!-- Pagamentos -->
+      <div>
+        <h4 class="font-bold mb-2">Formas de Pagamento</h4>
+        <p>💳 Cartões | Pix | Boleto</p>
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/visa.gif" alt="Visa" class="inline w-10">
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/master.gif" alt="MasterCard" class="inline w-10">
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/pix.gif" alt="Pix" class="inline w-10">
+      </div>
+    </div>
+    <p class="text-center mt-6 text-sm text-purple-200">© 2025 Mundo dos Véus. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Recuperando o pedido do localStorage
+      const pedido = JSON.parse(localStorage.getItem('pedido'));
+
+      if (pedido) {
+        // Exibindo o número de pedido
+        const numeroPedido = Math.floor(Math.random() * 1000000);  // Gerando número aleatório
+        document.getElementById('numero-pedido').textContent = numeroPedido;
+
+        // Exibindo o resumo do pedido
+        const listaItens = document.getElementById('resumo-itens');
+        let subtotal = 0;
+        pedido.itens.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = `${item.nome} - ${item.quantidade}x R$ ${item.preco.toFixed(2)}`;
+          listaItens.appendChild(li);
+          subtotal += item.preco * item.quantidade;
+        });
+
+        // Calculando total
+        const frete = 15.00;  // Valor fixo de frete
+        document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
+        document.getElementById('frete').textContent = `R$ ${frete.toFixed(2)}`;
+        document.getElementById('total').textContent = `R$ ${(subtotal + frete).toFixed(2)}`;
+      } else {
+        // Caso o pedido não tenha sido encontrado
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+</body>
+</html>

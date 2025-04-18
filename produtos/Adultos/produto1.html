@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalhes do Produto - Mundo dos Véus</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Swiper.js para o carrossel de imagens -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+</head>
+<body class="bg-pink-50 text-gray-800">
+
+  <!-- HEADER -->
+  <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <a href="#" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
+    <div class="flex items-center gap-6">
+      <nav class="hidden md:flex gap-4 font-medium text-gray-700">
+        <a href="#">Home</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#">Sobre</a>
+        <a href="#">Contato</a>
+      </nav>
+      <div class="flex gap-4 text-lg">
+        <a href="#">🛒</a>
+        <a href="#">👤 Login</a>
+      </div>
+    </div>
+  </header>
+  
+  <div id="carrinho-lateral" class="fixed top-24 right-4 w-72 bg-white shadow-lg rounded-xl p-4 border border-purple-300 z-50">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold text-purple-700">🛒 Seu Carrinho</h3>
+      <button id="fechar-carrinho" class="text-purple-700 text-2xl font-bold hover:text-purple-900">&times;</button>
+    </div>
+  
+    <ul id="itens-carrinho" class="space-y-2 max-h-64 overflow-y-auto"></ul>
+    <p class="text-lg font-semibold mt-4">Total: R$ <span id="total-carrinho">0.00</span></p>
+    <a href="https://link.mercadopago.com.br/lojasdeveu" target="_blank"
+       class="inline-block mt-4 bg-purple-700 text-white text-lg font-semibold px-4 py-2 rounded-lg hover:bg-purple-800 transition">
+      Finalizar Compra
+    </a>
+  </div>
+  
+  
+
+  <!-- Seta para Voltar à Página de Produtos -->
+  <div class="mt-6 ml-6">
+    <a href="#produtos" class="flex items-center text-purple-600 hover:text-purple-800">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l-7-7 7-7" />
+      </svg>
+      Voltar à lista de produtos
+    </a>
+  </div>
+
+  <!-- Detalhes do Produto -->
+  <section class="p-6 bg-white max-w-6xl mx-auto mt-8">
+    <div class="flex w-full gap-0"> <!-- Removido gap e adicionado w-full -->
+      <!-- Carrossel de Imagens -->
+      <div class="w-full relative"> <!-- Altere a largura para w-full -->
+        <!-- Imagem -->
+        <div class="overflow-hidden w-full h-96">
+          <img id="produto-img" src="/imagens/coleçao.avif" alt="Véu Branco Rendado" class="w-full h-full object-contain" />
+        </div>
+    
+        <!-- Setas de Navegação -->
+        <button id="prev" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-purple-700 text-white rounded-full p-2 hover:bg-purple-800">
+          &#8249;
+        </button>
+        <button id="next" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-purple-700 text-white rounded-full p-2 hover:bg-purple-800">
+          &#8250;
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Detalhes do Produto -->
+  <section class="p-6 bg-white max-w-6xl mx-auto mt-8">
+    <div class="flex justify-center"> <!-- Centraliza o conteúdo -->
+      <div class="w-full sm:w-1/2 text-center"> <!-- Centraliza o conteúdo e aplica largura responsiva -->
+        <h1 class="text-3xl font-semibold mb-4">Véu Branco Rendado</h1>
+        <p class="text-gray-600 mb-4">Descrição detalhada do produto: Este véu é ideal para noivas que desejam um toque de sofisticação e delicadeza para o grande dia. O tecido leve e a cor neutra fazem deste véu a escolha perfeita para combinar com diferentes estilos de vestidos de noiva.</p>
+        <p class="text-xl font-bold text-purple-600">R$ 49,90</p>
+  
+        <!-- Opções (se houver) -->
+        <div class="mt-6 mb-4">
+          <label for="tamanho" class="block font-medium">Escolha o Tamanho:</label>
+          <select id="tamanho" class="p-2 border rounded-md mt-2 w-full">
+            <option value="p">Pequeno</option>
+            <option value="m">Médio</option>
+            <option value="g">Grande</option>
+          </select>
+        </div>
+  
+        <!-- Seleção de Quantidade -->
+        <div class="mt-4 mb-4">
+          <label for="quantidade" class="block font-medium">Quantidade:</label>
+          <input type="number" id="quantidade" min="1" value="1" class="p-2 border rounded-md mt-2 w-full" />
+        </div>
+  
+       <!-- Botão Comprar -->
+       <button class="adicionar-ao-carrinho bg-purple-600 text-white py-2 px-6 rounded-full hover:bg-purple-700"
+       data-nome="Véu Branco Rendado"
+       data-preco="49.90">
+ Adicionar ao Carrinho
+</button>
+
+
+        
+        <!-- Mais Informações do Produto -->
+        <div class="mt-8">
+          <h3 class="text-xl font-semibold mb-4">Mais Detalhes</h3>
+          <p class="text-gray-600">Material: Renda delicada e macia. Este véu é perfeito para quem procura algo sofisticado, mas ao mesmo tempo suave ao toque. Seu design foi desenvolvido para trazer leveza ao visual.</p>
+          <p class="text-gray-600 mt-4">Cor: Branco Neve. Ideal para noivas que preferem uma tonalidade mais clássica e tradicional, garantindo um look atemporal e elegante.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-purple-800 text-white py-10 mt-10">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
+      <div>
+        <h4 class="font-bold mb-2">Contato</h4>
+        <p>📱 WhatsApp: (11) 91234-5678</p>
+        <p>✉️ Email: contato@mundodosveus.com</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Links Úteis</h4>
+        <ul>
+          <li><a href="#" class="hover:underline">Política de Troca</a></li>
+          <li><a href="#" class="hover:underline">Frete e Entrega</a></li>
+          <li><a href="#" class="hover:underline">Termos e Condições</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Redes Sociais</h4>
+        <p><a href="#" class="hover:underline">Instagram</a></p>
+        <p><a href="#" class="hover:underline">Facebook</a></p>
+        <p><a href="#" class="hover:underline">Pinterest</a></p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Formas de Pagamento</h4>
+        <p>💳 Cartões | Pix | Boleto</p>
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/visa.gif" alt="Visa" class="inline w-10">
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/master.gif" alt="MasterCard" class="inline w-10">
+        <img src="https://www.mercadopago.com.br/org-img/MP3/home/logos/pix.gif" alt="Pix" class="inline w-10">
+      </div>
+    </div>
+    <p class="text-center mt-6 text-sm text-purple-200">© 2025 Mundo dos Véus. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Script para Navegação das Imagens -->
+  <script>
+    let currentImageIndex = 0;
+    const images = [
+      "/imagens/coleçao.avif",  // Imagem 1
+      "/imagens/Novidades.jpg", // Imagem 2
+      "/imagens/frete gratis.jpg", // Imagem 3
+      "/imagens/veus tradicional.webp", // Imagem 4
+    ];
+
+    const produtoImg = document.getElementById('produto-img');
+
+    // Função para ir para a próxima imagem
+    function nextImage() {
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      produtoImg.src = images[currentImageIndex];
+    }
+
+    // Função para voltar à imagem anterior
+    function prevImage() {
+      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+      produtoImg.src = images[currentImageIndex];
+    }
+
+    // Eventos das setas
+    document.getElementById('next').addEventListener('click', nextImage);
+    document.getElementById('prev').addEventListener('click', prevImage);
+  </script>
+
+  <!-- Script para o Carrinho -->
+  <script src="/carrinho.js"></script>
+</body>
+</html>
