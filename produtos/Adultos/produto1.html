@@ -15,14 +15,14 @@
     <a href="#" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
     <div class="flex items-center gap-6">
       <nav class="hidden md:flex gap-4 font-medium text-gray-700">
-        <a href="#">Home</a>
-        <a href="#produtos">Produtos</a>
-        <a href="#">Sobre</a>
-        <a href="#">Contato</a>
+        <a href="/index.html">Home</a>
+        <a href="/produtos.html">Produtos</a>
+        <a href="/sobre.html">Sobre</a>
+        <a href="/contatos.html">Contato</a>
       </nav>
       <div class="flex gap-4 text-lg">
-        <a href="#">🛒</a>
-        <a href="#">👤 Login</a>
+        <a href="/carrinho.html">🛒</a>
+        <a href="/login.html">👤 Login</a>
       </div>
     </div>
   </header>
@@ -35,7 +35,7 @@
   
     <ul id="itens-carrinho" class="space-y-2 max-h-64 overflow-y-auto"></ul>
     <p class="text-lg font-semibold mt-4">Total: R$ <span id="total-carrinho">0.00</span></p>
-    <a href="https://link.mercadopago.com.br/lojasdeveu" target="_blank"
+    <a href="/carrinho.html" target="_blank"
        class="inline-block mt-4 bg-purple-700 text-white text-lg font-semibold px-4 py-2 rounded-lg hover:bg-purple-800 transition">
       Finalizar Compra
     </a>
@@ -45,7 +45,7 @@
 
   <!-- Seta para Voltar à Página de Produtos -->
   <div class="mt-6 ml-6">
-    <a href="#produtos" class="flex items-center text-purple-600 hover:text-purple-800">
+    <a href="/produtos.html" class="flex items-center text-purple-600 hover:text-purple-800">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5" />
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l-7-7 7-7" />
@@ -155,10 +155,10 @@
   <script>
     let currentImageIndex = 0;
     const images = [
-      "/imagens/coleçao.avif",  // Imagem 1
-      "/imagens/Novidades.jpg", // Imagem 2
-      "/imagens/frete gratis.jpg", // Imagem 3
-      "/imagens/veus tradicional.webp", // Imagem 4
+      "/imagens/Nossos produtos/infantis.jpg",  // Imagem 1
+      "/imagens/Nossos produtos/Rendas.jpg", // Imagem 2
+      "/imagens/Nossos produtos/Veus Noiva.jpg", // Imagem 3
+      "/imagens/Nossos produtos/veus tradicional.jpg", // Imagem 4
     ];
 
     const produtoImg = document.getElementById('produto-img');
