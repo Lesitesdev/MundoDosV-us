@@ -9,19 +9,33 @@
 <body class="bg-gray-100">
 
   <!-- Cabeçalho -->
-  <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
-    <a href="#" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
-    <div class="flex items-center gap-6">
-      <nav class="hidden md:flex gap-4 font-medium text-gray-700">
-        <a href="#">Home</a>
-        <a href="#produtos">Produtos</a>
-        <a href="#">Sobre</a>
-        <a href="#">Contato</a>
+  <header class="bg-white shadow-md px-6 py-4">
+    <div class="max-w-6xl mx-auto flex items-center">
+      <!-- Logo -->
+      <a href="index.html" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
+
+      <!-- Navegação -->
+      <nav class="ml-8 hidden md:flex space-x-6">
+        <a href="index.html"    class="text-gray-700 hover:text-purple-700">Início</a>
+        <a href="produtos.html" class="text-gray-700 hover:text-purple-700">Produtos</a>
+        <a href="sobre.html"    class="text-gray-700 hover:text-purple-700">Sobre</a>
+        <a href="contato.html"  class="text-gray-700 hover:text-purple-700">Contato</a>
+        <a href="cliente.html" id="account-link" class="text-gray-700 hover:text-purple-700 hidden">Meu Cadastro</a>
       </nav>
-      <div class="flex gap-4 text-lg">
-        <a href="#">🛒</a>
-        <a href="#">👤 Login</a>
+
+      <div class="flex-1"></div>
+
+      <!-- Carrinho -->
+      <a href="carrinho.html" class="text-2xl text-gray-700 hover:text-purple-700 mr-6">🛒</a>
+
+      <!-- Saudação + Logout (só logado) -->
+      <div id="user-info" class="flex items-center space-x-2 hidden">
+        <span id="saudacao" class="text-gray-700"></span>
+        <button id="logout-link" class="text-gray-700 hover:text-purple-700">🚪 Logout</button>
       </div>
+
+      <!-- Login (só não-logado) -->
+      <a href="login.html" id="login-link" class="text-gray-700 hover:text-purple-700">👤 Login</a>
     </div>
   </header>
 
@@ -216,6 +230,95 @@
       atualizarCarrinho();
     }
   </script>
+  <!-- Firebase SDKs -->
+<script type="module">
+  // Importando módulos Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, getDocs, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  // Sua configuração do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyD9FSLA-EOGRgvDbbaBqBge7j8gRl4WJkI",
+    authDomain: "loja-de-veus.firebaseapp.com",
+    projectId: "loja-de-veus",
+    storageBucket: "loja-de-veus.appspot.com",
+    messagingSenderId: "907809130966",
+    appId: "1:907809130966:web:800dae192863cddbc2fc77",
+    measurementId: "G-XDRVKSRMQP"
+  };
+
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Torna auth e db globais
+  window.auth = auth;
+  window.db = db;
+</script>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  // Configuração do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyD9FSLA-EOGRgvDbbaBqBge7j8gRl4WJkI",
+    authDomain: "loja-de-veus.firebaseapp.com",
+    projectId: "loja-de-veus",
+    storageBucket: "loja-de-veus.appspot.com",
+    messagingSenderId: "907809130966",
+    appId: "1:907809130966:web:800dae192863cddbc2fc77",
+    measurementId: "G-XDRVKSRMQP"
+  };
+
+  // Inicialização do Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Referências ao DOM
+  const userInfoEl = document.getElementById("user-info");
+  const loginLinkEl = document.getElementById("login-link");
+  const saudacaoEl = document.getElementById("saudacao");
+  const logoutBtnEl = document.getElementById("logout-link");
+  const accountLinkEl = document.getElementById("account-link");
+
+  // Verifica estado de autenticação
+  onAuthStateChanged(auth, async user => {
+    if (user) {
+      // Busca o nome do Firestore ou fallback
+      let nome = user.displayName || "";
+      try {
+        const snap = await getDoc(doc(db, "usuarios", user.uid));
+        if (snap.exists() && snap.data().nome) nome = snap.data().nome;
+      } catch (e) {
+        console.warn("Erro ao buscar nome:", e);
+      }
+
+      // Exibe as informações de login
+      saudacaoEl.textContent = `Olá, ${nome || user.email.split("@")[0]}!`;
+      userInfoEl.classList.remove("hidden");
+      loginLinkEl.classList.add("hidden");
+      accountLinkEl.classList.remove("hidden");
+    } else {
+      userInfoEl.classList.add("hidden");
+      loginLinkEl.classList.remove("hidden");
+      accountLinkEl.classList.add("hidden");
+    }
+  });
+
+  // Função de logout
+  logoutBtnEl?.addEventListener("click", () => {
+    signOut(auth)
+      .then(() => window.location.href = "login.html")
+      .catch(err => console.error(err));
+  });
+</script>
+
 
 </body>
 </html>

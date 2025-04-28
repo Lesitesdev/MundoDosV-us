@@ -9,22 +9,48 @@
 <body class="bg-gray-100">
 
   <!-- Header padrão do site -->
-  <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
-    <a href="#" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
-    <div class="flex items-center gap-6">
-      <nav class="hidden md:flex gap-4 font-medium text-gray-700">
-        <a href="#">Home</a>
-        <a href="#produtos">Produtos</a>
-        <a href="#">Sobre</a>
-        <a href="#">Contato</a>
+  <div id="carrinho-lateral" class="fixed top-24 right-4 w-72 bg-white shadow-lg rounded-xl p-4 border border-purple-300 z-50 hidden">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold text-purple-700">🛒 Seu Carrinho</h3>
+      <button id="fechar-carrinho" class="text-purple-700 text-2xl font-bold hover:text-purple-900">&times;</button>
+    </div>
+  
+    <ul id="itens-carrinho" class="space-y-2 max-h-64 overflow-y-auto"></ul>
+    <p class="text-lg font-semibold mt-4">Total: R$ <span id="total-carrinho">0.00</span></p>
+  
+    <!-- Finalizar Compra -->
+    <a href="carrinho.html" id="finalizar-compra" class="inline-block mt-4 bg-purple-700 text-white text-lg font-semibold px-4 py-2 rounded-lg hover:bg-purple-800 transition">
+      Finalizar Compra
+    </a>
+  </div>
+
+  <header class="bg-white shadow-md px-6 py-4">
+    <div class="max-w-6xl mx-auto flex items-center">
+      <!-- Logo -->
+      <a href="index.html" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
+
+      <!-- Navegação -->
+      <nav class="ml-8 hidden md:flex space-x-6">
+        <a href="index.html"    class="text-gray-700 hover:text-purple-700">Início</a>
+        <a href="produtos.html" class="text-gray-700 hover:text-purple-700">Produtos</a>
+        <a href="sobre.html"    class="text-gray-700 hover:text-purple-700">Sobre</a>
+        <a href="contato.html"  class="text-gray-700 hover:text-purple-700">Contato</a>
+        <a href="cliente.html" id="account-link" class="text-gray-700 hover:text-purple-700 hidden">Meu Cadastro</a>
       </nav>
-      <div class="search-box hidden md:block">
-        <input type="text" placeholder="Buscar...">
+
+      <div class="flex-1"></div>
+
+      <!-- Carrinho -->
+      <a href="carrinho.html" class="text-2xl text-gray-700 hover:text-purple-700 mr-6">🛒</a>
+
+      <!-- Saudação + Logout (só logado) -->
+      <div id="user-info" class="flex items-center space-x-2 hidden">
+        <span id="saudacao" class="text-gray-700"></span>
+        <button id="logout-link" class="text-gray-700 hover:text-purple-700">🚪 Logout</button>
       </div>
-      <div class="flex gap-4 text-lg">
-        <a href="#">🛒</a>
-        <a href="#">👤 Login</a>
-      </div>
+
+      <!-- Login (só não-logado) -->
+      <a href="login.html" id="login-link" class="text-gray-700 hover:text-purple-700">👤 Login</a>
     </div>
   </header>
 
@@ -34,11 +60,9 @@
     <p class="text-lg text-gray-700 mb-8">
       O <strong>Mundo dos Véus</strong> é uma loja especializada em véus e acessórios para noivas e mulheres evangélicas que desejam um toque de delicadeza e sofisticação para o seu grande dia. Fundada com o objetivo de oferecer produtos de qualidade e um atendimento personalizado, nossa missão é garantir que cada cliente se sinta especial e única em sua jornada.
     </p>
-
     <p class="text-lg text-gray-700 mb-8">
       Atuamos com uma curadoria rigorosa para escolher os melhores tecidos, bordados e detalhes que fazem toda a diferença. Cada véu é projetado para refletir a beleza e a elegância de cada mulher, desde modelos tradicionais até as opções mais modernas, sem abrir mão da tradição e do respeito à fé.
     </p>
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
       <div class="bg-gray-200 p-6 rounded-lg">
         <img src="https://via.placeholder.com/500x300" alt="Imagem de Véu 1" class="w-full h-48 object-cover rounded-lg mb-4">
@@ -49,26 +73,50 @@
         <p class="text-center text-gray-600">A delicadeza e sofisticação que você merece</p>
       </div>
     </div>
-
     <p class="text-lg text-gray-700 mb-8">
       No <strong>Mundo dos Véus</strong>, estamos comprometidos em fornecer um excelente atendimento ao cliente, desde o momento da escolha do véu até a entrega final. Nossa equipe está pronta para oferecer todas as informações necessárias para garantir que sua compra seja feita com confiança e tranquilidade. Acreditamos que o casamento é um momento único e, por isso, queremos que cada detalhe seja perfeito.
     </p>
-
     <div class="text-center">
       <a href="#contato" class="text-purple-700 font-semibold hover:text-purple-900">Entre em contato para mais informações sobre nossos produtos e serviços!</a>
+    </div>
+  </section>
+
+  <!-- Seção Contato -->
+  <section id="contato" class="bg-gray-200 py-12 px-6">
+    <h2 class="text-3xl font-bold text-center text-purple-700 mb-6">Contatos</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-xl font-semibold text-purple-700 mb-4">Informações de Contato</h3>
+        <p class="text-lg text-gray-700 mb-4">📱 WhatsApp: (11) 91234-5678</p>
+        <p class="text-lg text-gray-700 mb-4">✉️ Email: contato@mundodosveus.com</p>
+        <div>
+          <h4 class="text-lg font-semibold text-purple-700">Redes Sociais</h4>
+          <ul>
+            <li><a href="#" class="text-purple-700 hover:underline">Instagram</a></li>
+            <li><a href="#" class="text-purple-700 hover:underline">Facebook</a></li>
+            <li><a href="#" class="text-purple-700 hover:underline">Pinterest</a></li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-purple-700 mb-4">Nos Encontre</h3>
+        <div class="w-full h-64 bg-gray-300 rounded-lg mb-4">
+          <!-- Google Maps Embed -->
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.251571731005!2d-46.64232248502445!3d-23.5557492676259!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59df312ddc2f%3A0x53d6270a1da0c1b7!2sAvenida%20Paulista%2C%20199!5e0!3m2!1spt-BR!2sbr!4v1651021695637!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <p class="text-lg text-gray-700">Endereço: Avenida Paulista, 199, São Paulo, SP</p>
+      </div>
     </div>
   </section>
 
   <!-- Rodapé padrão -->
   <footer class="bg-purple-800 text-white py-10">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
-      <!-- Contato -->
       <div>
         <h4 class="font-bold mb-2">Contato</h4>
         <p>📱 WhatsApp: (11) 91234-5678</p>
         <p>✉️ Email: contato@mundodosveus.com</p>
       </div>
-      <!-- Links Úteis -->
       <div>
         <h4 class="font-bold mb-2">Links Úteis</h4>
         <ul>
@@ -77,14 +125,12 @@
           <li><a href="#" class="hover:underline">Termos e Condições</a></li>
         </ul>
       </div>
-      <!-- Redes Sociais -->
       <div>
         <h4 class="font-bold mb-2">Redes Sociais</h4>
         <p><a href="#" class="hover:underline">Instagram</a></p>
         <p><a href="#" class="hover:underline">Facebook</a></p>
         <p><a href="#" class="hover:underline">Pinterest</a></p>
       </div>
-      <!-- Pagamentos -->
       <div>
         <h4 class="font-bold mb-2">Formas de Pagamento</h4>
         <p>💳 Cartões | Pix | Boleto</p>
@@ -96,52 +142,164 @@
     <p class="text-center mt-6 text-sm text-purple-200">© 2025 Mundo dos Véus. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Script -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      const lista = document.getElementById('lista-itens');
-      let subtotal = 0;
-
-      carrinho.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.nome} - ${item.quantidade}x R$ ${item.preco.toFixed(2)}`; // Corrigido aqui
-        lista.appendChild(li);
-        subtotal += item.preco * item.quantidade;
+    // Carrinho de Compras
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    const itensCarrinho = document.getElementById("itens-carrinho");
+    const totalCarrinho = document.getElementById("total-carrinho");
+    const carrinhoLateral = document.getElementById("carrinho-lateral");
+    const fecharCarrinhoBtn = document.getElementById("fechar-carrinho");
+  
+    function adicionarAoCarrinho(produto) {
+      const existente = carrinho.find(item => item.nome === produto.nome);
+      if (existente) {
+        existente.quantidade++;
+      } else {
+        carrinho.push({ ...produto, quantidade: 1 });
+      }
+      atualizarCarrinho();
+      salvarCarrinho();
+      exibirCarrinho();
+    }
+  
+    function atualizarCarrinho() {
+      itensCarrinho.innerHTML = "";
+      let total = 0;
+  
+      carrinho.forEach((item, index) => {
+        const subtotal = item.preco * item.quantidade;
+        total += subtotal;
+  
+        const li = document.createElement("li");
+        li.className = "flex justify-between items-center border-b pb-1";
+        li.innerHTML = `
+          <div>
+            <p class="font-medium">${item.nome}</p>
+            <small class="text-gray-500">Qtd: ${item.quantidade} x R$ ${item.preco.toFixed(2)}</small>
+          </div>
+          <strong class="text-purple-700">R$ ${subtotal.toFixed(2)}</strong>
+          <div class="flex items-center space-x-2 ml-4">
+            <button onclick="ajustarQuantidade(${index}, -1)" class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">-</button>
+            <span class="font-medium">${item.quantidade}</span>
+            <button onclick="ajustarQuantidade(${index}, 1)" class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">+</button>
+          </div>
+        `;
+        itensCarrinho.appendChild(li);
       });
-
-      const freteFixo = 15.00; // Valor fixo do frete (SEDEX)
-      document.getElementById('subtotal').textContent = 'R$ ' + subtotal.toFixed(2);
-      document.getElementById('frete').textContent = 'R$ ' + freteFixo.toFixed(2);
-      document.getElementById('total').textContent = 'R$ ' + (subtotal + freteFixo).toFixed(2);
+  
+      totalCarrinho.textContent = total.toFixed(2);
+    }
+  
+    function ajustarQuantidade(index, delta) {
+      const item = carrinho[index];
+      if (!item) return;
+      item.quantidade += delta;
+      if (item.quantidade < 1) {
+        carrinho.splice(index, 1);
+      }
+      atualizarCarrinho();
+      salvarCarrinho();
+    }
+  
+    function salvarCarrinho() {
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    }
+  
+    function exibirCarrinho() {
+      if (carrinho.length > 0) {
+        carrinhoLateral.classList.remove("hidden");
+      }
+    }
+  
+    function fecharCarrinho() {
+      carrinhoLateral.classList.add("hidden");
+    }
+  
+    fecharCarrinhoBtn.addEventListener("click", fecharCarrinho);
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      atualizarCarrinho();
+      if (carrinho.length > 0) {
+        exibirCarrinho();
+      }
+      
+      document.querySelectorAll('.adicionar-ao-carrinho').forEach(button => {
+        button.addEventListener('click', () => {
+          const nome = button.dataset.nome;
+          const preco = parseFloat(button.dataset.preco);
+          adicionarAoCarrinho({ nome, preco });
+        });
+      });
     });
+  </script>
+  
+  
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-    document.getElementById('form-finalizar-compra').addEventListener('submit', function(event) {
-      event.preventDefault();
+  // Configuração do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyD9FSLA-EOGRgvDbbaBqBge7j8gRl4WJkI",
+    authDomain: "loja-de-veus.firebaseapp.com",
+    projectId: "loja-de-veus",
+    storageBucket: "loja-de-veus.appspot.com",
+    messagingSenderId: "907809130966",
+    appId: "1:907809130966:web:800dae192863cddbc2fc77",
+    measurementId: "G-XDRVKSRMQP"
+  };
 
-      const pedido = {
-        nome: document.getElementById('nome').value,
-        email: document.getElementById('email').value,
-        telefone: document.getElementById('telefone').value,
-        cpf: document.getElementById('cpf').value,
-        endereco: {
-          cep: document.getElementById('cep').value,
-          logradouro: document.getElementById('logradouro').value,
-          numero: document.getElementById('numero').value,
-          bairro: document.getElementById('bairro').value,
-          cidade: document.getElementById('cidade').value,
-          estado: document.getElementById('estado').value,
-        },
-        formaPagamento: document.getElementById('forma-pagamento').value,
-        observacoes: document.getElementById('observacoes').value,
-        itens: JSON.parse(localStorage.getItem('carrinho')) || [],
-        total: document.getElementById('total').textContent.replace('R$ ', '')
-      };
+  // Inicialização do Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
-      localStorage.setItem('pedido', JSON.stringify(pedido));
-      window.location.href = 'agradecimento.html';
-    });
+  // Referências ao DOM
+  const userInfoEl = document.getElementById("user-info");
+  const loginLinkEl = document.getElementById("login-link");
+  const saudacaoEl = document.getElementById("saudacao");
+  const logoutBtnEl = document.getElementById("logout-link");
+  const accountLinkEl = document.getElementById("account-link");
+
+  // Verifica estado de autenticação
+  onAuthStateChanged(auth, async user => {
+    if (user) {
+      // Busca o nome do Firestore ou fallback
+      let nome = user.displayName || "";
+      try {
+        const snap = await getDoc(doc(db, "usuarios", user.uid));
+        if (snap.exists() && snap.data().nome) nome = snap.data().nome;
+      } catch (e) {
+        console.warn("Erro ao buscar nome:", e);
+      }
+
+      // Exibe as informações de login
+      saudacaoEl.textContent = `Olá, ${nome || user.email.split("@")[0]}!`;
+      userInfoEl.classList.remove("hidden");
+      loginLinkEl.classList.add("hidden");
+      accountLinkEl.classList.remove("hidden");
+    } else {
+      userInfoEl.classList.add("hidden");
+      loginLinkEl.classList.remove("hidden");
+      accountLinkEl.classList.add("hidden");
+    }
+  });
+
+  // Função de logout
+  logoutBtnEl?.addEventListener("click", () => {
+    signOut(auth)
+      .then(() => window.location.href = "login.html")
+      .catch(err => console.error(err));
+  });
 </script>
+
+  </script>
+  
+  <!-- Importante: Carrinho.js apenas se ainda precisar -->
+  <!-- <script src="/carrinho.js"></script> -->
+  
+  
 
 </body>
 </html>

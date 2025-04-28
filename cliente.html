@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Conta</title>
+  <!-- Link para o Tailwind ou outros CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <header class="bg-white shadow-md px-6 py-4">
+    <div class="max-w-6xl mx-auto flex items-center">
+      <a href="index.html" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
+      <nav class="ml-8 hidden md:flex space-x-6">
+        <a href="index.html"    class="text-gray-700 hover:text-purple-700">Início</a>
+        <a href="produtos.html" class="text-gray-700 hover:text-purple-700">Produtos</a>
+        <a href="sobre.html"    class="text-gray-700 hover:text-purple-700">Sobre</a>
+        <a href="contato.html"  class="text-gray-700 hover:text-purple-700">Contato</a>
+        <a href="cliente.html" id="account-link" class="text-gray-700 hover:text-purple-700 hidden">Meu Cadastro</a>
+      </nav>
+  
+      <div class="flex-1"></div>
+  
+      <a href="carrinho.html" class="text-2xl text-gray-700 hover:text-purple-700 mr-6">🛒</a>
+  
+      <div id="user-info" class="flex items-center space-x-2 hidden">
+        <span id="saudacao" class="text-gray-700"></span>
+        <button id="logout-link" class="text-gray-700 hover:text-purple-700">🚪 Logout</button>
+      </div>
+  
+      <a href="login.html" id="login-link" class="text-gray-700 hover:text-purple-700">👤 Login</a>
+    </div>
+  </header>
+  
+
+  <div class="container mx-auto p-4">
+    <!-- Formulário de dados pessoais -->
+    <div class="mb-4">
+      <label for="clienteNome" class="block text-sm font-medium">Nome</label>
+      <input type="text" id="clienteNome" class="mt-1 p-2 border rounded w-full" placeholder="Nome do Cliente">
+    </div>
+
+    <div class="mb-4">
+      <label for="clienteEmail" class="block text-sm font-medium">Email</label>
+      <input type="email" id="clienteEmail" class="mt-1 p-2 border rounded w-full" placeholder="Email do Cliente" disabled>
+    </div>
+
+    <div class="mb-4">
+      <label for="clienteTelefone" class="block text-sm font-medium">Telefone</label>
+      <input type="text" id="clienteTelefone" class="mt-1 p-2 border rounded w-full" placeholder="Telefone do Cliente">
+    </div>
+
+    <div class="mb-4">
+      <label for="clienteSenha" class="block text-sm font-medium">Senha</label>
+      <input type="password" id="clienteSenha" class="mt-1 p-2 border rounded w-full" placeholder="Nova Senha">
+    </div>
+
+    <button id="btnSalvarDados" class="bg-blue-500 text-white p-2 rounded">Salvar Dados</button>
+
+    <!-- Mensagem de status -->
+    <div id="statusMsg" class="hidden mt-2"></div>
+
+    <!-- Seção de endereços -->
+    <div class="mt-4">
+      <h2 class="font-semibold text-lg">Meus Endereços</h2>
+      <div id="listaEnderecos"></div>
+      <button id="btnAdicionarEndereco" class="bg-green-500 text-white p-2 rounded mt-2">Adicionar Endereço</button>
+      <form id="formEndereco" class="hidden mt-4">
+        <label for="logradouro">Logradouro</label>
+        <input type="text" id="logradouro" class="p-2 border rounded w-full mb-2">
+
+        <label for="numero">Número</label>
+        <input type="text" id="numero" class="p-2 border rounded w-full mb-2">
+
+        <label for="bairro">Bairro</label>
+        <input type="text" id="bairro" class="p-2 border rounded w-full mb-2">
+
+        <label for="cidade">Cidade</label>
+        <input type="text" id="cidade" class="p-2 border rounded w-full mb-2">
+
+        <label for="estado">Estado</label>
+        <input type="text" id="estado" class="p-2 border rounded w-full mb-2">
+
+        <label for="cep">CEP</label>
+        <input type="text" id="cep" class="p-2 border rounded w-full mb-2">
+
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded">Salvar Endereço</button>
+      </form>
+    </div>
+
+    <!-- Seção de pedidos -->
+    <div class="mt-4">
+      <h2 class="font-semibold text-lg">Meus Pedidos</h2>
+      <div id="listaPedidos"></div>
+    </div>
+
+  </div>
+
+  <!-- Importação do script cliente.js -->
+  <script type="module" src="cliente.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, updatePassword, signOut } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD9FSLA-EOGRgvDbbaBqBge7j8gRl4WJkI",
+      authDomain: "loja-de-veus.firebaseapp.com",
+      projectId: "loja-de-veus",
+      storageBucket: "loja-de-veus.appspot.com",
+      messagingSenderId: "907809130966",
+      appId: "1:907809130966:web:800dae192863cddbc2fc77",
+      measurementId: "G-XDRVKSRMQP"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const nomeEl = document.getElementById("clienteNome");
+    const emailEl = document.getElementById("clienteEmail");
+    const telefoneEl = document.getElementById("clienteTelefone");
+    const senhaEl = document.getElementById("clienteSenha");
+    const btnSalvar = document.getElementById("btnSalvarDados");
+    const statusMsg = document.getElementById("statusMsg");
+
+    const loginLink = document.getElementById("login-link");
+    const logoutLink = document.getElementById("logout-link");
+    const accountLink = document.getElementById("account-link");
+    const userInfo = document.getElementById("user-info");
+
+   // Verifique se o usuário está logado e recupere os dados do Firestore
+// Verifique se o usuário está logado e recupere os dados do Firestore
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const docRef = doc(db, "usuarios", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const dados = docSnap.data();
+      nomeEl.value = dados.nome || '';
+      emailEl.value = dados.email || '';
+      telefoneEl.value = dados.telefone || '';
+    } else {
+      console.error("Documento não encontrado no Firestore.");
+      // Caso o documento não exista, você pode criar um novo ou exibir uma mensagem de erro
+      statusMsg.className = "text-red-600 mt-2";
+      statusMsg.innerText = "Erro: documento de usuário não encontrado.";
+      statusMsg.classList.remove("hidden");
+    }
+
+    // Exibe seções de logout, cadastro e conta
+    loginLink.classList.add("hidden");
+    logoutLink.classList.remove("hidden");
+    accountLink.classList.remove("hidden");
+    userInfo.classList.remove("hidden");
+
+    // Ação de logout
+    logoutLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      signOut(auth).then(() => {
+        window.location.reload();
+      }).catch((error) => {
+        console.error("Erro ao sair:", error);
+      });
+    });
+
+    // Verifica se o botão de salvar existe antes de adicionar o ouvinte de evento
+    if (btnSalvar) {
+      btnSalvar.addEventListener("click", async () => {
+        const nomeCompleto = nomeEl.value.trim().split(" ");
+        const primeiroNome = nomeCompleto[0];
+        const sobrenome = nomeCompleto.slice(1).join(" ");
+        const telefone = telefoneEl.value.trim();
+        const novaSenha = senhaEl.value.trim();
+
+        try {
+          // Tenta atualizar os dados no Firestore
+          await updateDoc(doc(db, "usuarios", user.uid), {
+            nome: primeiroNome,
+            sobrenome: sobrenome,
+            telefone: telefone,
+          });
+
+          // Atualiza a senha, se fornecida
+          if (novaSenha.length >= 6) {
+            await updatePassword(user, novaSenha);
+          }
+
+          statusMsg.className = "text-green-600 mt-2";
+          statusMsg.innerText = "Dados atualizados com sucesso!";
+          statusMsg.classList.remove("hidden");
+
+        } catch (error) {
+          console.error("Erro ao atualizar:", error);
+          statusMsg.className = "text-red-600 mt-2";
+          statusMsg.innerText = "Erro ao salvar dados.";
+          statusMsg.classList.remove("hidden");
+        }
+      });
+    } else {
+      console.error("Botão de salvar não encontrado.");
+    }
+  } else {
+    // Se o usuário não estiver logado
+    loginLink.classList.remove("hidden");
+    logoutLink.classList.add("hidden");
+    accountLink.classList.add("hidden");
+    userInfo.classList.add("hidden");
+  }
+});
+
+
+
+  </script>
+
+</body>
+</html>

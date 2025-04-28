@@ -9,8 +9,7 @@
 <body class="bg-pink-50 text-gray-800">
 
   <!-- HEADER -->
-   <!-- Header -->
-   <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+  <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
     <a href="#" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
     <div class="flex items-center gap-6">
       <nav class="hidden md:flex gap-4 font-medium text-gray-700">
@@ -33,34 +32,44 @@
   <main class="flex items-center justify-center py-20 px-4">
     <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
       <h2 class="text-2xl font-bold text-center text-pink-700 mb-6">Entrar na sua conta</h2>
-      <form>
+      <form id="login-form">
         <div class="mb-4">
           <label class="block mb-1 text-sm font-medium text-gray-700">E-mail</label>
-          <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-200 focus:outline-none" placeholder="voce@exemplo.com" required />
+          <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-200 focus:outline-none" placeholder="voce@exemplo.com" required />
         </div>
         <div class="mb-6">
           <label class="block mb-1 text-sm font-medium text-gray-700">Senha</label>
-          <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-200 focus:outline-none" placeholder="********" required />
+          <input type="password" id="senha" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-200 focus:outline-none" placeholder="********" required autocomplete="current-password" />
         </div>
-        <button type="submit" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 rounded-lg transition">Entrar</button>
+        <button type="submit" id="login-btn" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 rounded-lg transition">
+          Entrar
+        </button>
+      
+        <!-- Mensagem de sucesso ou erro -->
+        <div id="login-message" class="text-center text-sm mt-4"></div>
       </form>
+      
       <p class="mt-4 text-sm text-center text-gray-600">
         Ainda não tem conta?
         <a href="/cadastro.html" class="text-pink-600 hover:underline font-medium">Cadastre-se aqui</a>
       </p>
+      <!-- Botão de login com Google -->
+<button id="google-login-btn" class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg transition mt-4">
+  Login com Google
+</button>
+
     </div>
+    
   </main>
 
   <!-- FOOTER -->
   <footer class="bg-purple-800 text-white py-10">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
-      <!-- Contato -->
       <div>
         <h4 class="font-bold mb-2">Contato</h4>
         <p>📱 WhatsApp: (11) 91234-5678</p>
         <p>✉️ Email: contato@mundodosveus.com</p>
       </div>
-      <!-- Links Úteis -->
       <div>
         <h4 class="font-bold mb-2">Links Úteis</h4>
         <ul>
@@ -69,14 +78,12 @@
           <li><a href="#" class="hover:underline">Termos e Condições</a></li>
         </ul>
       </div>
-      <!-- Redes Sociais -->
       <div>
         <h4 class="font-bold mb-2">Redes Sociais</h4>
         <p><a href="#" class="hover:underline">Instagram</a></p>
         <p><a href="#" class="hover:underline">Facebook</a></p>
         <p><a href="#" class="hover:underline">Pinterest</a></p>
       </div>
-      <!-- Pagamentos -->
       <div>
         <h4 class="font-bold mb-2">Formas de Pagamento</h4>
         <p>💳 Cartões | Pix | Boleto</p>
@@ -87,6 +94,94 @@
     </div>
     <p class="text-center mt-6 text-sm text-purple-200">© 2025 Mundo dos Véus. Todos os direitos reservados.</p>
   </footer>
-  <script src="/carrinho.js"></script>
+
+  <script type="module">
+    // Importação Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+  
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyD9FSLA-EOGRgvDbbaBqBge7j8gRl4WJkI",
+      authDomain: "loja-de-veus.firebaseapp.com",
+      projectId: "loja-de-veus",
+      storageBucket: "loja-de-veus.appspot.com",
+      messagingSenderId: "907809130966",
+      appId: "1:907809130966:web:800dae192863cddbc2fc77",
+      measurementId: "G-XDRVKSRMQP"
+    };
+  
+    // Inicialização
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app); // caso queira usar depois
+  
+    const loginForm = document.getElementById("login-form");
+    const loginMessage = document.getElementById("login-message");
+  
+    // Função para exibir mensagens
+    function showMessage(text, type = "error") {
+      if (type === "success") {
+        loginMessage.className = "text-green-600 text-center text-sm mt-4";
+      } else {
+        loginMessage.className = "text-red-600 text-center text-sm mt-4";
+      }
+      loginMessage.textContent = text;
+    }
+  
+    // Evento de login com Email e Senha
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+  
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+  
+      try {
+        await signInWithEmailAndPassword(auth, email, senha);
+        showMessage("Login realizado com sucesso!", "success");
+  
+        setTimeout(() => {
+          window.location.href = "/cliente.html"; // Redireciona após 1,5s
+        }, 1500);
+  
+      } catch (error) {
+        console.error("Erro no login:", error);
+  
+        if (error.code === 'auth/invalid-login-credentials') {
+          if (confirm("E-mail ou senha incorretos. Deseja se cadastrar agora?")) {
+            window.location.href = "/cadastro.html"; // Redireciona para o cadastro
+          } else {
+            showMessage("E-mail ou senha incorretos. Tente novamente.");
+          }
+        } else {
+          alert("Erro ao fazer login: " + (error.message || "Tente novamente."));
+        }
+      }
+    });
+  
+    // Evento de login com Google
+    document.getElementById("google-login-btn").addEventListener("click", async () => {
+      const provider = new GoogleAuthProvider();
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        showMessage(`Bem-vindo, ${user.displayName}! Redirecionando...`, "success");
+  
+        setTimeout(() => {
+          window.location.href = "/cliente.html";
+        }, 1500);
+  
+      } catch (error) {
+        console.error("Erro no login com Google:", error);
+        showMessage("Erro ao fazer login com Google: " + (error.message || "Tente novamente."));
+      }
+    });
+  
+  </script>
+  
+
+
+
 </body>
 </html>

@@ -101,5 +101,35 @@
       }
     });
   </script>
+  <!-- Firebase SDKs -->
+<script type="module">
+  // Importando módulos Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, getDocs, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  // Sua configuração do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyD9FSLA-EOGRgvDbbaBqBge7j8gRl4WJkI",
+    authDomain: "loja-de-veus.firebaseapp.com",
+    projectId: "loja-de-veus",
+    storageBucket: "loja-de-veus.appspot.com",
+    messagingSenderId: "907809130966",
+    appId: "1:907809130966:web:800dae192863cddbc2fc77",
+    measurementId: "G-XDRVKSRMQP"
+  };
+
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Torna auth e db globais
+  window.auth = auth;
+  window.db = db;
+</script>
+
+<script type="module" src="/header.js"></script>
+
 </body>
 </html>

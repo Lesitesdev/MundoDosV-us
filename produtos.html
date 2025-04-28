@@ -8,25 +8,52 @@
 </head>
 <body class="bg-pink-50 text-gray-800">
 
-  <!-- HEADER -->
-  <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
-    <a href="index.html" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
-    <div class="flex items-center gap-6">
-      <nav class="hidden md:flex gap-4 font-medium text-gray-700">
-        <a href="index.html">Home</a>
-        <a href="produtos.html">Produtos</a>
-        <a href="#">Sobre</a>
-        <a href="#">Contato</a>
+  <div id="carrinho-lateral" class="fixed top-24 right-4 w-72 bg-white shadow-lg rounded-xl p-4 border border-purple-300 z-50 hidden">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold text-purple-700">🛒 Seu Carrinho</h3>
+      <button id="fechar-carrinho" class="text-purple-700 text-2xl font-bold hover:text-purple-900">&times;</button>
+    </div>
+  
+    <ul id="itens-carrinho" class="space-y-2 max-h-64 overflow-y-auto"></ul>
+    <p class="text-lg font-semibold mt-4">Total: R$ <span id="total-carrinho">0.00</span></p>
+  
+    <!-- Finalizar Compra -->
+    <a href="carrinho.html" id="finalizar-compra" class="inline-block mt-4 bg-purple-700 text-white text-lg font-semibold px-4 py-2 rounded-lg hover:bg-purple-800 transition">
+      Finalizar Compra
+    </a>
+  </div>
+
+  <header class="bg-white shadow-md px-6 py-4">
+    <div class="max-w-6xl mx-auto flex items-center">
+      <!-- Logo -->
+      <a href="index.html" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
+
+      <!-- Navegação -->
+      <nav class="ml-8 hidden md:flex space-x-6">
+        <a href="index.html"    class="text-gray-700 hover:text-purple-700">Início</a>
+        <a href="produtos.html" class="text-gray-700 hover:text-purple-700">Produtos</a>
+        <a href="sobre.html"    class="text-gray-700 hover:text-purple-700">Sobre</a>
+        <a href="contato.html"  class="text-gray-700 hover:text-purple-700">Contato</a>
+        <a href="cliente.html" id="account-link" class="text-gray-700 hover:text-purple-700 hidden">Meu Cadastro</a>
       </nav>
-      <div class="search-box hidden md:block">
-        <input type="text" placeholder="Buscar...">
+
+      <div class="flex-1"></div>
+
+      <!-- Carrinho -->
+      <a href="carrinho.html" class="text-2xl text-gray-700 hover:text-purple-700 mr-6">🛒</a>
+
+      <!-- Saudação + Logout (só logado) -->
+      <div id="user-info" class="flex items-center space-x-2 hidden">
+        <span id="saudacao" class="text-gray-700"></span>
+        <button id="logout-link" class="text-gray-700 hover:text-purple-700">🚪 Logout</button>
       </div>
-      <div class="flex gap-4 text-lg">
-        <a href="carrinho.html">🛒</a>
-        <a href="login.html">👤 Login</a>
-      </div>
+
+      <!-- Login (só não-logado) -->
+      <a href="login.html" id="login-link" class="text-gray-700 hover:text-purple-700">👤 Login</a>
     </div>
   </header>
+  
+
 
   <!-- CATÁLOGO COM FILTRO -->
   <section class="p-6 bg-white max-w-7xl mx-auto mt-8">
@@ -119,40 +146,184 @@
     <p class="text-center mt-6 text-sm text-purple-200">© 2025 Mundo dos Véus. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- SCRIPT DO FILTRO -->
+  <script type="module" src="/header.js"></script>
   <script>
+    // Filtrar Produtos
     function filtrarProdutos(categoria, botaoClicado) {
-      const produtos = document.querySelectorAll('.produto');
-  
-      produtos.forEach(produto => {
-        const cat = produto.getAttribute('data-categoria');
-        if (categoria === 'todos' || cat === categoria) {
-          produto.style.display = 'block';
-        } else {
-          produto.style.display = 'none';
-        }
+      document.querySelectorAll('.produto').forEach(produto => {
+        const cat = produto.dataset.categoria;
+        produto.style.display = (categoria === 'todos' || cat === categoria) ? 'block' : 'none';
       });
   
-      // Remove estilo ativo de todos os botões
       document.querySelectorAll('.filtro-btn').forEach(btn => {
         btn.classList.remove('bg-purple-700', 'text-white');
         btn.classList.add('bg-gray-200', 'text-gray-800');
       });
   
-      // Aplica estilo ao botão clicado (inclusive se for "Todos")
       botaoClicado.classList.add('bg-purple-700', 'text-white');
       botaoClicado.classList.remove('bg-gray-200', 'text-gray-800');
     }
   
-    // Exibe todos ao carregar
+    // Exibe todos os produtos ao carregar
     document.addEventListener('DOMContentLoaded', () => {
-      const produtos = document.querySelectorAll('.produto');
-      produtos.forEach(p => p.style.display = 'block');
+      document.querySelectorAll('.produto').forEach(produto => produto.style.display = 'block');
+    });
+  </script>
+  
+  <script>
+    // Carrinho de Compras
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    const itensCarrinho = document.getElementById("itens-carrinho");
+    const totalCarrinho = document.getElementById("total-carrinho");
+    const carrinhoLateral = document.getElementById("carrinho-lateral");
+    const fecharCarrinhoBtn = document.getElementById("fechar-carrinho");
+  
+    function adicionarAoCarrinho(produto) {
+      const existente = carrinho.find(item => item.nome === produto.nome);
+      if (existente) {
+        existente.quantidade++;
+      } else {
+        carrinho.push({ ...produto, quantidade: 1 });
+      }
+      atualizarCarrinho();
+      salvarCarrinho();
+      exibirCarrinho();
+    }
+  
+    function atualizarCarrinho() {
+      itensCarrinho.innerHTML = "";
+      let total = 0;
+  
+      carrinho.forEach((item, index) => {
+        const subtotal = item.preco * item.quantidade;
+        total += subtotal;
+  
+        const li = document.createElement("li");
+        li.className = "flex justify-between items-center border-b pb-1";
+        li.innerHTML = `
+          <div>
+            <p class="font-medium">${item.nome}</p>
+            <small class="text-gray-500">Qtd: ${item.quantidade} x R$ ${item.preco.toFixed(2)}</small>
+          </div>
+          <strong class="text-purple-700">R$ ${subtotal.toFixed(2)}</strong>
+          <div class="flex items-center space-x-2 ml-4">
+            <button onclick="ajustarQuantidade(${index}, -1)" class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">-</button>
+            <span class="font-medium">${item.quantidade}</span>
+            <button onclick="ajustarQuantidade(${index}, 1)" class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">+</button>
+          </div>
+        `;
+        itensCarrinho.appendChild(li);
+      });
+  
+      totalCarrinho.textContent = total.toFixed(2);
+    }
+  
+    function ajustarQuantidade(index, delta) {
+      const item = carrinho[index];
+      if (!item) return;
+      item.quantidade += delta;
+      if (item.quantidade < 1) {
+        carrinho.splice(index, 1);
+      }
+      atualizarCarrinho();
+      salvarCarrinho();
+    }
+  
+    function salvarCarrinho() {
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    }
+  
+    function exibirCarrinho() {
+      if (carrinho.length > 0) {
+        carrinhoLateral.classList.remove("hidden");
+      }
+    }
+  
+    function fecharCarrinho() {
+      carrinhoLateral.classList.add("hidden");
+    }
+  
+    fecharCarrinhoBtn.addEventListener("click", fecharCarrinho);
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      atualizarCarrinho();
+      if (carrinho.length > 0) {
+        exibirCarrinho();
+      }
+      
+      document.querySelectorAll('.adicionar-ao-carrinho').forEach(button => {
+        button.addEventListener('click', () => {
+          const nome = button.dataset.nome;
+          const preco = parseFloat(button.dataset.preco);
+          adicionarAoCarrinho({ nome, preco });
+        });
+      });
     });
   </script>
   
   
-  <script src="/carrinho.js"></script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  // Configuração do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyD9FSLA-EOGRgvDbbaBqBge7j8gRl4WJkI",
+    authDomain: "loja-de-veus.firebaseapp.com",
+    projectId: "loja-de-veus",
+    storageBucket: "loja-de-veus.appspot.com",
+    messagingSenderId: "907809130966",
+    appId: "1:907809130966:web:800dae192863cddbc2fc77",
+    measurementId: "G-XDRVKSRMQP"
+  };
+
+  // Inicialização do Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Referências ao DOM
+  const userInfoEl = document.getElementById("user-info");
+  const loginLinkEl = document.getElementById("login-link");
+  const saudacaoEl = document.getElementById("saudacao");
+  const logoutBtnEl = document.getElementById("logout-link");
+  const accountLinkEl = document.getElementById("account-link");
+
+  // Verifica estado de autenticação
+  onAuthStateChanged(auth, async user => {
+    if (user) {
+      // Busca o nome do Firestore ou fallback
+      let nome = user.displayName || "";
+      try {
+        const snap = await getDoc(doc(db, "usuarios", user.uid));
+        if (snap.exists() && snap.data().nome) nome = snap.data().nome;
+      } catch (e) {
+        console.warn("Erro ao buscar nome:", e);
+      }
+
+      // Exibe as informações de login
+      saudacaoEl.textContent = `Olá, ${nome || user.email.split("@")[0]}!`;
+      userInfoEl.classList.remove("hidden");
+      loginLinkEl.classList.add("hidden");
+      accountLinkEl.classList.remove("hidden");
+    } else {
+      userInfoEl.classList.add("hidden");
+      loginLinkEl.classList.remove("hidden");
+      accountLinkEl.classList.add("hidden");
+    }
+  });
+
+  // Função de logout
+  logoutBtnEl?.addEventListener("click", () => {
+    signOut(auth)
+      .then(() => window.location.href = "login.html")
+      .catch(err => console.error(err));
+  });
+</script>
+
+  
+  
 
 </body>
 </html>

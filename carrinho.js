@@ -1,3 +1,5 @@
+import { firebaseConfig } from './firebaseConfig.js';
+
 function adicionarAoCarrinho(nome, preco) {
     const itens = JSON.parse(localStorage.getItem('carrinho')) || [];
 
@@ -69,13 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarCarrinho();
 
     // Lógica para botões de "Adicionar ao Carrinho"
-    document.querySelectorAll('.adicionar-ao-carrinho').forEach(button => {
-        button.addEventListener('click', function () {
-            const nome = this.getAttribute('data-nome');
-            const preco = this.getAttribute('data-preco');
-            adicionarAoCarrinho(nome, preco);
+    const buttons = document.querySelectorAll('.adicionar-ao-carrinho');
+    if (buttons.length > 0) {
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                const nome = this.getAttribute('data-nome');
+                const preco = this.getAttribute('data-preco');
+                adicionarAoCarrinho(nome, preco);
+            });
         });
-    });
+    }
 
     // Botão de fechar o carrinho lateral
     const fecharCarrinhoBtn = document.getElementById('fechar-carrinho');
@@ -94,12 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Função chamada ao clicar em "Finalizar Compra"
-document.getElementById('finalizar-compra').addEventListener('click', function () {
-    // Salva o carrinho no localStorage para garantir que a página carrinho.html possa acessá-lo
-    const itens = JSON.parse(localStorage.getItem('carrinho')) || [];
-    localStorage.setItem('carrinho', JSON.stringify(itens));
-});
+
 
 // Finalizando o pedido ao enviar o formulário de compra
 document.getElementById('form-finalizar-compra').addEventListener('submit', function(event) {
@@ -129,8 +129,7 @@ document.getElementById('form-finalizar-compra').addEventListener('submit', func
     localStorage.setItem('pedido', JSON.stringify(pedido));
   
     // Redirecionando para a página de agradecimento
-setTimeout(function() {
-    window.location.href = 'agradecimento.html';  // Redireciona para a página de agradecimento
-  }, 300000); // Aguarda 5 minutos antes de redirecionar
-  
+    setTimeout(function() {
+        window.location.href = 'agradecimento.html';  // Redireciona para a página de agradecimento
+    }, 300000); // Aguarda 5 minutos antes de redirecionar
 });
