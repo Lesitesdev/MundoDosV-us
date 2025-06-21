@@ -59,7 +59,7 @@ function showStatus(msg, ok = true) {
 
 // Ao logar, carregar dados
 onAuthStateChanged(auth, async user => {
-  if (!user) return void (window.location.href = "login.html");
+  if (!user) return void (window.location.href = "login.php");
 
   emailInput.value = user.email;
 
@@ -220,5 +220,5 @@ async function carregarPedidos(uid) {
 
 // Logout
 logoutBtn.addEventListener("click", () => {
-  signOut(auth).then(() => window.location.href = "login.html");
+  signOut(auth).then(() => window.location.href = "login.php");
 });
