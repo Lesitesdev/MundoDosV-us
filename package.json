@@ -1,4 +1,6 @@
 {
+  "name": "mundodosveus",
+  "version": "1.0.0",
   "dependencies": {
     "firebase": "^11.6.0"
   }

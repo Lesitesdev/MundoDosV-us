@@ -12,22 +12,22 @@ function loadHeader() {
       <header class="bg-white shadow-md px-6 py-4">
         <div class="max-w-6xl mx-auto flex items-center">
           <!-- Logo -->
-          <a href="index.html" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
+          <a href="index.php" class="text-2xl font-bold text-purple-700">Mundo dos Véus</a>
   
           <!-- Navegação -->
           <nav class="ml-8 hidden md:flex space-x-6">
-            <a href="index.html"    class="text-gray-700 hover:text-purple-700">Início</a>
-            <a href="produtos.html" class="text-gray-700 hover:text-purple-700">Produtos</a>
-            <a href="sobre.html"    class="text-gray-700 hover:text-purple-700">Sobre</a>
-            <a href="contato.html"  class="text-gray-700 hover:text-purple-700">Contato</a>
+            <a href="index.php"    class="text-gray-700 hover:text-purple-700">Início</a>
+            <a href="produtos.php" class="text-gray-700 hover:text-purple-700">Produtos</a>
+            <a href="sobre.php"    class="text-gray-700 hover:text-purple-700">Sobre</a>
+            <a href="contato.php"  class="text-gray-700 hover:text-purple-700">Contato</a>
             <!-- Este link só aparece se estiver logado -->
-            <a href="cliente.html" id="account-link" class="text-gray-700 hover:text-purple-700 hidden">Meu Cadastro</a>
+            <a href="cliente.php" id="account-link" class="text-gray-700 hover:text-purple-700 hidden">Meu Cadastro</a>
           </nav>
   
           <div class="flex-1"></div>
   
           <!-- Carrinho -->
-          <a href="carrinho.html" class="text-2xl text-gray-700 hover:text-purple-700 mr-6">🛒</a>
+          <a href="carrinho.php" class="text-2xl text-gray-700 hover:text-purple-700 mr-6">🛒</a>
   
           <!-- Saudação + Logout (só logado) -->
           <div id="user-info" class="flex items-center space-x-2 hidden">
@@ -36,7 +36,7 @@ function loadHeader() {
           </div>
   
           <!-- Login (só não-logado) -->
-          <a href="login.html" id="login-link" class="text-gray-700 hover:text-purple-700">👤 Login</a>
+          <a href="login.php" id="login-link" class="text-gray-700 hover:text-purple-700">👤 Login</a>
         </div>
       </header>
     `;
@@ -60,7 +60,7 @@ function loadHeader() {
       saudacao.textContent = `Olá, ${user.displayName || user.email}`;
       logoutLink.addEventListener('click', async () => {
         await firebase.auth().signOut();
-        window.location.href = 'index.html';
+        window.location.href = 'index.php';
       });
     } else {
       accountLink.style.display = 'none';
